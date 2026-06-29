@@ -198,6 +198,13 @@ public partial class TableView : ListView
         }
         else if (e.Key is VirtualKey.Escape && currentCell is not null && IsEditing)
         {
+            // Transfer focus from the editing element (e.g. TextBox) to the cell
+            // itself BEFORE EndCellEditing tears down that element.  If we wait,
+            // WinUI's focus manager will move focus to the next focusable sibling
+            // the moment the editing element is removed from the visual tree, and
+            // screen readers will announce that sibling instead of the current cell.
+            currentCell.Focus(FocusState.Programmatic);
+
             e.Handled = EndCellEditing(TableViewEditAction.Cancel, currentCell);
             SetIsEditing(false);
         }
