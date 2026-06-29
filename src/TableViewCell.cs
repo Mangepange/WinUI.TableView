@@ -1,5 +1,6 @@
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -692,4 +693,10 @@ public partial class TableViewCell : ContentControl
     /// Gets or sets the TableView for the cell.
     /// </summary>
     public TableView? TableView { get; internal set; }
+
+    /// <inheritdoc/>
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new AutomationPeers.TableViewCellAutomationPeer(this);
+    }
 }
