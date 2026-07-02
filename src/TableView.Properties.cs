@@ -943,6 +943,8 @@ public partial class TableView
         {
             tableView.OnIsReadOnlyChanged(e);
 
+            if (!tableView.IsReadOnly) return;
+
             if (tableView.IsEditing &&
                 tableView.CurrentCellSlot is not null &&
                 tableView.GetCellFromSlot(tableView.CurrentCellSlot.Value) is { } currentCell &&
@@ -951,9 +953,8 @@ public partial class TableView
                 tableView.SetIsEditing(false);
             }
 
-            if ((tableView.SelectionMode is ListViewSelectionMode.None
+            if (tableView.SelectionMode is ListViewSelectionMode.None
                 || tableView.SelectionUnit is TableViewSelectionUnit.Row)
-                && tableView.IsReadOnly)
             {
                 tableView.CurrentCellSlot = null;
             }

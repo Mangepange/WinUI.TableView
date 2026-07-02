@@ -514,6 +514,7 @@ public abstract partial class TableViewColumn : DependencyObject
         if (d is TableViewColumn column)
         {
             if (column.TableView is TableView tableView &&
+                tableView.IsReadOnly &&
                 tableView.IsEditing &&
                 tableView.CurrentCellSlot is not null &&
                 tableView.GetCellFromSlot(tableView.CurrentCellSlot.Value) is { } currentCell &&
