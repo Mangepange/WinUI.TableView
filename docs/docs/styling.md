@@ -86,11 +86,13 @@ For bound column types, use [`ElementStyle`](xref:WinUI.TableView.TableViewBound
 Set background and/or foreground for even-indexed rows:
 
 ```xml
-<tv:TableView AlternateRowBackground="#F5F5F5"
-              AlternateRowForeground="{ThemeResource TextFillColorPrimaryBrush}" />
+<tv:TableView AlternateRowBackground="#50515C6B"
+              AlternateRowForeground="#FF00FFFF" />
 ```
 
 The alternate style is applied to even rows (0-based index: rows 0, 2, 4, …).
+
+![Alternating row background colors](../images/styling-alternating-rows.png)
 
 ## Grid lines
 

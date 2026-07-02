@@ -15,22 +15,25 @@ Provide a [`RowDetailsTemplate`](xref:WinUI.TableView.TableView.RowDetailsTempla
               RowDetailsVisibilityMode="VisibleWhenSelected">
     <tv:TableView.RowDetailsTemplate>
         <DataTemplate>
-            <StackPanel Padding="16" Spacing="4">
-                <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" />
+            <StackPanel Padding="16" Spacing="8">
+                <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="SemiBold" />
                 <TextBlock>
-                    <Run Text="Shipped to: " FontWeight="SemiBold" />
-                    <Run Text="{Binding ShippingAddress}" />
+                    <Run Text="Price: " FontWeight="SemiBold" />
+                    <Run Text="{Binding Price}" />
                 </TextBlock>
+                <Border HorizontalAlignment="Left" Padding="8,4" CornerRadius="12" Background="{ThemeResource SystemFillColorSuccessBackgroundBrush}">
+                    <TextBlock FontWeight="SemiBold">
+                        <Run Text="In stock: " />
+                        <Run Text="{Binding InStock}" />
+                    </TextBlock>
+                </Border>
             </StackPanel>
         </DataTemplate>
     </tv:TableView.RowDetailsTemplate>
-    <tv:TableView.Columns>
-        <tv:TableViewTextColumn   Header="Order #"   Binding="{Binding OrderNumber}" />
-        <tv:TableViewDateColumn   Header="Date"      Binding="{Binding OrderDate}" />
-        <tv:TableViewNumberColumn Header="Total"     Binding="{Binding Total}" />
-    </tv:TableView.Columns>
 </tv:TableView>
 ```
+
+![Row details panel expanded for a selected row](../images/row-details-expanded.png)
 
 ## RowDetailsVisibilityMode
 

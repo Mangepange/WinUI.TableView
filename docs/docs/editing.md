@@ -19,6 +19,8 @@ Editing is enabled by default. No extra configuration is required:
 </tv:TableView>
 ```
 
+![Editing a cell in edit mode](../images/editing-cell-in-edit-mode.png)
+
 Double-tap any cell to edit it.
 
 ## Making the table read-only

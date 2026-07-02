@@ -38,6 +38,8 @@
 <tv:TableView SelectionUnit="Row" SelectionMode="Single" />
 ```
 
+![Cell selection in action](../images/cell-selection.gif)
+
 ## Reading selected items
 
 For row selection, use the standard `ListView` properties:

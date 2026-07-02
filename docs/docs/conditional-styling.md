@@ -13,19 +13,19 @@ Define a [`TableViewConditionalCellStyle`](xref:WinUI.TableView.TableViewConditi
 ```xml
 <tv:TableView ItemsSource="{x:Bind Products}">
     <tv:TableView.ConditionalCellStyles>
-        <tv:TableViewConditionalCellStylesCollection>
-            <tv:TableViewConditionalCellStyle Predicate="{x:Bind IsLowStock}">
-                <Style TargetType="tv:TableViewCell">
-                    <Setter Property="Background" Value="#FFEBE9" />
-                    <Setter Property="Foreground" Value="#D1242F" />
-                </Style>
-            </tv:TableViewConditionalCellStyle>
-        </tv:TableViewConditionalCellStylesCollection>
+        <tv:TableViewConditionalCellStyle Predicate="{x:Bind IsLowPrice}">
+            <Style TargetType="tv:TableViewCell">
+                <Setter Property="Background" Value="#00d26a" />
+                <Setter Property="Foreground" Value="#f4f4f4" />
+            </Style>
+        </tv:TableViewConditionalCellStyle>
     </tv:TableView.ConditionalCellStyles>
 </tv:TableView>
 ```
 
 The `Predicate` property takes a `Predicate<TableViewConditionalCellStyleContext>`, which provides the column and data item for evaluation.
+
+![Cells with conditional background applied](../images/conditional-styling-example.png)
 
 ## Defining predicates in code
 
@@ -33,22 +33,14 @@ The easiest way to supply predicates is from the code-behind or ViewModel. With 
 
 ```csharp
 // Code behind or ViewModel
-public bool IsLowStock(TableViewConditionalCellStyleContext ctx)
+public Predicate<TableViewConditionalCellStyleContext> IsLowPrice => static context =>
 {
-    // Apply only to the Stock column
-    if (ctx.Column.Header?.ToString() != "Stock")
-        return false;
+    // Apply only to the Price column
+    if (context.Column.Header?.ToString() != "Price")
+    return false;
 
-    return ctx.DataItem is Product p && p.Stock < 10;
-}
-```
-
-```xml
-<tv:TableViewConditionalCellStyle Predicate="{x:Bind IsLowStock}">
-    <Style TargetType="tv:TableViewCell">
-        <Setter Property="Background" Value="#FFF3CD" />
-    </Style>
-</tv:TableViewConditionalCellStyle>
+    return context.DataItem is Product p && p.Price < 10;
+};
 ```
 
 ## Per-column conditional styles
@@ -58,14 +50,12 @@ You can also add [`ConditionalCellStyles`](xref:WinUI.TableView.TableView.Condit
 ```xml
 <tv:TableViewNumberColumn Header="Price" Binding="{Binding Price}">
     <tv:TableViewNumberColumn.ConditionalCellStyles>
-        <tv:TableViewConditionalCellStylesCollection>
-            <tv:TableViewConditionalCellStyle Predicate="{x:Bind IsPriceNegative}">
-                <Style TargetType="tv:TableViewCell">
-                    <Setter Property="Foreground" Value="Red" />
-                    <Setter Property="FontWeight" Value="Bold" />
-                </Style>
-            </tv:TableViewConditionalCellStyle>
-        </tv:TableViewConditionalCellStylesCollection>
+        <tv:TableViewConditionalCellStyle Predicate="{x:Bind IsPriceNegative}">
+            <Style TargetType="tv:TableViewCell">
+                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+        </tv:TableViewConditionalCellStyle>
     </tv:TableViewNumberColumn.ConditionalCellStyles>
 </tv:TableViewNumberColumn>
 ```

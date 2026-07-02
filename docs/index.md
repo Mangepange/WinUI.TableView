@@ -4,42 +4,54 @@
 
 Use WinUI.TableView when you need a tabular data display with sorting, filtering, editing, row details, and clipboard support in a WinUI 3 or Uno Platform application.
 
+![WinUI.TableView overview](images/tableview-overview.png)
+
 ## Quick start
 
 Install the NuGet package:
 
-```bash
+**.NET CLI**
+```powershell
+dotnet add package WinUI.TableView
+```
+
+Or
+
+**Package Manager Console**
+```powershell
 Install-Package WinUI.TableView
 ```
 
 Add to your XAML:
 
 ```xml
-<Window
-    xmlns:tv="using:WinUI.TableView">
-    <Grid>
-        <tv:TableView ItemsSource="{x:Bind Products}" AutoGenerateColumns="False">
-            <tv:TableView.Columns>
-                <tv:TableViewTextColumn   Header="Name"     Binding="{Binding Name}" />
-                <tv:TableViewNumberColumn Header="Price"    Binding="{Binding Price}" />
-                <tv:TableViewCheckBoxColumn Header="In Stock" Binding="{Binding InStock}" />
-            </tv:TableView.Columns>
-        </tv:TableView>
-    </Grid>
-</Window>
+<Grid xmlns:tv="using:WinUI.TableView">
+    <tv:TableView ItemsSource="{x:Bind Products}" AutoGenerateColumns="False">
+        <tv:TableView.Columns>
+            <tv:TableViewTextColumn   Header="Name"     Binding="{Binding Name}" />
+            <tv:TableViewNumberColumn Header="Price"    Binding="{Binding Price}" />
+            <tv:TableViewCheckBoxColumn Header="In Stock" Binding="{Binding InStock}" />
+        </tv:TableView.Columns>
+    </tv:TableView>
+</Grid>
 ```
 
 Add the model and data to your code-behind or view model:
 
 ```csharp
-public record Product(string Name, double Price, bool InStock);
-
 public ObservableCollection<Product> Products { get; } = new()
 {
-    new Product("Widget A", 9.99,  true),
-    new Product("Widget B", 24.99, false),
-    new Product("Widget C", 4.49,  true),
+	new Product { Name = "Widget A", Price = 9.99, InStock = true },
+	new Product { Name = "Widget B", Price = 24.99, InStock = false },
+	new Product { Name = "Widget C", Price = 4.49, InStock = true },
 };
+
+public class Product
+{
+    public string? Name { get; set; }
+    public double Price { get; set; }
+    public bool InStock { get; set; }
+}
 ```
 
 ## [Samples App](https://github.com/w-ahmad/WinUI.TableView/tree/main/samples/WinUI.TableView.SampleApp)

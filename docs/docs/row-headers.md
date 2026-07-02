@@ -30,16 +30,15 @@ Provide a `DataTemplate` via [`RowHeaderTemplate`](xref:WinUI.TableView.TableVie
 <tv:TableView ItemsSource="{x:Bind Products}">
     <tv:TableView.RowHeaderTemplate>
         <DataTemplate>
-            <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},
-                                     Path=Tag}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="11"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            <Border MinWidth="40">
+                <FontIcon Glyph="&#xE72A;" />
+            </Border>
         </DataTemplate>
     </tv:TableView.RowHeaderTemplate>
 </tv:TableView>
 ```
+
+![Custom row header with icon](../images/row-headers-custom.png)
 
 > **Note:** The `Tag` of the `TableViewRowHeader` is set to the row's 1-based index. Bind to it with `{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}` for row numbers.
 

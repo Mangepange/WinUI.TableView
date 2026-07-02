@@ -16,6 +16,8 @@ Sorting is on by default. No extra configuration is needed:
 
 Clicking the **Price** column header sorts the rows by price.
 
+![Sort direction indicator on a column header](../images/sorting-column-header.png)
+
 ## Disabling sorting
 
 Disable sorting for the entire table:

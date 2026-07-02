@@ -22,6 +22,8 @@ By default, the column filter flyout opens from the options button in the column
 <tv:TableView UseRightClickForColumnFilter="True" />
 ```
 
+![Filter flyout showing value checkboxes](../images/filtering-flyout.png)
+
 ## Disabling filtering
 
 Disable filtering for the entire table:

@@ -16,6 +16,8 @@ Column reordering is enabled by default:
 
 Users can drag any column header to a new position.
 
+![Dragging a column header to reorder](../images/column-reordering-drag.gif)
+
 ## Disabling reordering
 
 Disable reordering for all columns:
