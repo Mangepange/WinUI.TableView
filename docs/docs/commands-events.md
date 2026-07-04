@@ -204,7 +204,7 @@ This page lists all public events exposed by `TableView` and related types.
 |---|---|
 | `Both` | Max of header and cell widths |
 | `Cells` | Cell content width only |
-| [`Header`](xref:WinUI.TableView.TableViewColumn.Header) | Header content width only |
+| [`Header`](xref:WinUI.TableView.TableViewColumnAutoWidthMode.Header) | Header content width only |
 
 ## Related articles
 
