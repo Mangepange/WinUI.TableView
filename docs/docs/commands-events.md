@@ -141,8 +141,7 @@ This page lists all public events exposed by `TableView` and related types.
 | Property | Type | Description |
 |---|---|---|
 | `Column` | [`TableViewColumn`](xref:WinUI.TableView.TableViewColumn) | The column that was moved |
-| `OldIndex` | `int` | Previous index in [`Columns`](xref:WinUI.TableView.TableView.Columns) |
-| `NewIndex` | `int` | New index in [`Columns`](xref:WinUI.TableView.TableView.Columns) |
+| `Index` | `int` | New index in [`Columns`](xref:WinUI.TableView.TableView.Columns) |
 
 ---
 
