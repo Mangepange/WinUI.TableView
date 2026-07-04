@@ -144,7 +144,7 @@ Displays a formatted time string and edits with a custom `TableViewTimePicker`. 
 | [`Binding`](xref:WinUI.TableView.TableViewBoundColumn.Binding) | [`Binding`](xref:WinUI.TableView.TableViewBoundColumn.Binding) | — | Two-way binding to the time property |
 | [`ClockIdentifier`](xref:WinUI.TableView.TableViewTimeColumn.ClockIdentifier) | `string` | system clock | `"12HourClock"` or `"24HourClock"` |
 | [`MinuteIncrement`](xref:WinUI.TableView.TableViewTimeColumn.MinuteIncrement) | `int` | `1` | Minute step in the time picker |
-| [`PlaceholderText`](xref:WinUI.TableView.TableViewDateColumn.PlaceHolderText) | `string?` | localized | Placeholder when no time is selected |
+| [`PlaceholderText`](xref:WinUI.TableView.TableViewTimeColumn.PlaceholderText) | `string?` | localized | Placeholder when no time is selected |
 | [`ElementStyle`](xref:WinUI.TableView.TableViewBoundColumn.ElementStyle) | `Style` | — | Style for the display `TextBlock` |
 | [`EditingElementStyle`](xref:WinUI.TableView.TableViewBoundColumn.EditingElementStyle) | `Style` | — | Style for the `TableViewTimePicker` |
 
