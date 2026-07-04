@@ -78,7 +78,7 @@ Displays a `TextBlock` and edits with a `ComboBox`.
 | Property | Description |
 |---|---|
 | [`Binding`](xref:WinUI.TableView.TableViewBoundColumn.Binding) | Two-way binding to the selected value/item |
-| [`ItemsSource`](xref:WinUI.TableView.TableView.ItemsSource) | The list of items to show in the dropdown |
+| [`ItemsSource`](xref:WinUI.TableView.TableViewComboBoxColumn.ItemsSource) | The list of items to show in the dropdown |
 | [`DisplayMemberPath`](xref:WinUI.TableView.TableViewComboBoxColumn.DisplayMemberPath) | Property path used to display the item text |
 | [`SelectedValuePath`](xref:WinUI.TableView.TableViewComboBoxColumn.SelectedValuePath) | Property path for the selected value |
 | [`IsEditable`](xref:WinUI.TableView.TableViewComboBoxColumn.IsEditable) | Whether the ComboBox allows free-form text input |
