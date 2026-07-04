@@ -957,9 +957,18 @@ public partial class TableView
         {
             tableView.OnIsReadOnlyChanged(e);
 
-            if ((tableView.SelectionMode is ListViewSelectionMode.None
+            if (!tableView.IsReadOnly) return;
+
+            if (tableView.IsEditing &&
+                tableView.CurrentCellSlot is not null &&
+                tableView.GetCellFromSlot(tableView.CurrentCellSlot.Value) is { } currentCell &&
+                tableView.EndCellEditing(TableViewEditAction.Cancel, currentCell))
+            {
+                tableView.SetIsEditing(false);
+            }
+
+            if (tableView.SelectionMode is ListViewSelectionMode.None
                 || tableView.SelectionUnit is TableViewSelectionUnit.Row)
-                && tableView.IsReadOnly)
             {
                 tableView.CurrentCellSlot = null;
             }
