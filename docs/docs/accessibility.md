@@ -13,7 +13,7 @@ You do not need to opt in. Accessibility support is always active. This page exp
 | [`TableView`](xref:WinUI.TableView.TableView) | `GridPattern`, `TablePattern`, `SelectionPattern` (inherited from `ListView`) |
 | [`TableViewRow`](xref:WinUI.TableView.TableViewRow) | `SelectionItemPattern` (inherited), `ExpandCollapsePattern` when `RowDetailsVisibilityMode` is `VisibleWhenExpanded` |
 | [`TableViewCell`](xref:WinUI.TableView.TableViewCell) | `GridItemPattern`, `TableItemPattern`, `SelectionItemPattern` |
-| [`TableViewColumnHeader`](xref:WinUI.TableView.TableViewColumnHeader) | `InvokePattern` when [`CanSort`](xref:WinUI.TableView.TableViewColumnHeader.CanSort) is `true` |
+| [`TableViewColumnHeader`](xref:WinUI.TableView.TableViewColumnHeader) | `InvokePattern` when [`CanSort`](xref:WinUI.TableView.TableViewColumn.CanSort) is `true` |
 | `TableViewRowHeader` | Structural header element |
 
 ### GridPattern / TablePattern (TableView)
@@ -45,7 +45,7 @@ Each `TableViewCell` exposes `IGridItemProvider` and `ITableItemProvider`:
 
 ### InvokePattern (column headers)
 
-When a column is sortable ([`CanSort`](xref:WinUI.TableView.TableViewColumnHeader.CanSort) is `true`), its header exposes `IInvokeProvider`. Invoking the header cycles the sort direction: ascending → descending → unsorted.
+When a column is sortable ([`CanSort`](xref:WinUI.TableView.TableViewColumn.CanSort) is `true`), its header exposes `IInvokeProvider`. Invoking the header cycles the sort direction: ascending → descending → unsorted.
 
 ### ExpandCollapsePattern (row details)
 
