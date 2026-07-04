@@ -186,7 +186,7 @@ This page lists all public events exposed by `TableView` and related types.
 | Value | Description |
 |---|---|
 | `All` | Both row and column headers |
-| [`Columns`](xref:WinUI.TableView.TableView.Columns) | Column headers only |
+| [`Columns`](xref:WinUI.TableView.TableViewHeadersVisibility.Columns) | Column headers only |
 | `Rows` | Row headers only |
 | `None` | No headers |
 
