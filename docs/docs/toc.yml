@@ -58,6 +58,8 @@
     href: commands-events.md
   - name: Performance Guidance
     href: performance.md
+  - name: Native AOT Compatibility
+    href: aot-compatibility.md
 - name: Migration
   items:
   - name: Migrating from WPF DataGrid
