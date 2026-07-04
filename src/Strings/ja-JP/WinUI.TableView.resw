@@ -195,6 +195,6 @@
     <value>クリップボードのコンテンツをセルに貼り付けます。</value>
   </data>
   <data name="Filtered" xml:space="preserve">
-    <value>Filtered</value>
+    <value>フィルター済み</value>
   </data>
 </root>

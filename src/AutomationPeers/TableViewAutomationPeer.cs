@@ -87,11 +87,33 @@ public partial class TableViewAutomationPeer : ListViewAutomationPeer, IGridProv
 
     /// <summary>
     /// Returns automation peers for all row header elements.
-    /// Currently returns an empty array as row header automation is provided individually by each row.
     /// </summary>
     public IRawElementProviderSimple[] GetRowHeaders()
     {
-        return [];
+        var providers = new List<IRawElementProviderSimple>();
+
+        foreach (var row in _owner.Rows)
+        {
+            var rowHeader = row.RowPresenter?.RowHeader;
+            if (rowHeader is null)
+            {
+                continue;
+            }
+
+            var peer = CreatePeerForElement(rowHeader);
+            if (peer is null)
+            {
+                continue;
+            }
+
+            var provider = ProviderFromPeer(peer);
+            if (provider is not null)
+            {
+                providers.Add(provider);
+            }
+        }
+
+        return [.. providers];
     }
 
     /// <summary>

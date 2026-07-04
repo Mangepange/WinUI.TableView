@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Automation.Peers;
 using Microsoft.UI.Xaml.Automation.Provider;
+using System.Collections.Generic;
 
 namespace WinUI.TableView.AutomationPeers;
 
@@ -72,11 +73,27 @@ public partial class TableViewCellAutomationPeer : FrameworkElementAutomationPee
         var rowIndex = _owner.Row?.Index ?? -1;
         var rowDisplay = rowIndex >= 0 ? $"Row {rowIndex + 1}" : string.Empty;
 
-        var cellValue = _owner.Column?.GetCellContent(_owner.Row?.Content)?.ToString() ?? string.Empty;
+        var cellValue = _owner.Column is TableViewTemplateColumn
+            ? string.Empty
+            : _owner.Column?.GetCellContent(_owner.Row?.Content)?.ToString() ?? string.Empty;
 
-        return string.IsNullOrEmpty(columnHeader)
-            ? $"{rowDisplay}, {cellValue}".Trim(',', ' ')
-            : $"{columnHeader}, {rowDisplay}, {cellValue}".Trim(',', ' ');
+        var parts = new List<string>(3);
+        if (!string.IsNullOrEmpty(columnHeader))
+        {
+            parts.Add(columnHeader);
+        }
+
+        if (!string.IsNullOrEmpty(rowDisplay))
+        {
+            parts.Add(rowDisplay);
+        }
+
+        if (!string.IsNullOrEmpty(cellValue))
+        {
+            parts.Add(cellValue);
+        }
+
+        return parts.Count > 0 ? string.Join(", ", parts) : base.GetNameCore();
     }
 
     /// <inheritdoc/>
@@ -89,12 +106,12 @@ public partial class TableViewCellAutomationPeer : FrameworkElementAutomationPee
 
         var sortInfo = column.SortDirection switch
         {
-            SortDirection.Ascending => " (Sort Ascending)",
-            SortDirection.Descending => " (Sort Descending)",
+            SortDirection.Ascending => $" ({TableViewLocalizedStrings.SortAscending})",
+            SortDirection.Descending => $" ({TableViewLocalizedStrings.SortDescending})",
             _ => string.Empty
         };
 
-        var filterInfo = column.IsFiltered ? " (Filtered)" : string.Empty;
+        var filterInfo = column.IsFiltered ? $" ({TableViewLocalizedStrings.Filtered})" : string.Empty;
 
         var header = TableViewRowAutomationPeer.GetColumnHeaderText(column);
         return string.IsNullOrEmpty(header) ? base.GetHelpTextCore() : $"{header}{sortInfo}{filterInfo}";
@@ -117,12 +134,12 @@ public partial class TableViewCellAutomationPeer : FrameworkElementAutomationPee
     /// <summary>
     /// Gets the zero-based row index of the cell within the grid.
     /// </summary>
-    public int Row => _owner.Row?.Index ?? 0;
+    public int Row => _owner.Row?.Index ?? -1;
 
     /// <summary>
     /// Gets the zero-based column index of the cell within the grid.
     /// </summary>
-    public int Column => _owner.Index;
+    public int Column => _owner.Column is null ? -1 : _owner.Index;
 
     /// <summary>
     /// Gets the number of rows spanned by this cell. Always 1.
@@ -159,7 +176,20 @@ public partial class TableViewCellAutomationPeer : FrameworkElementAutomationPee
     /// </summary>
     public IRawElementProviderSimple[] GetRowHeaderItems()
     {
-        return [];
+        var rowHeader = _owner.Row?.RowPresenter?.RowHeader;
+        if (rowHeader is null)
+        {
+            return [];
+        }
+
+        var peer = CreatePeerForElement(rowHeader);
+        if (peer is null)
+        {
+            return [];
+        }
+
+        var provider = ProviderFromPeer(peer);
+        return provider is null ? [] : [provider];
     }
 
     /// <summary>

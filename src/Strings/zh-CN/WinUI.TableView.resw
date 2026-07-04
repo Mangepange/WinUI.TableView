@@ -187,6 +187,6 @@
     <value>将剪贴板内容粘贴到单元格中。</value>
   </data>
   <data name="Filtered" xml:space="preserve">
-    <value>Filtered</value>
+    <value>已筛选</value>
   </data>
 </root>

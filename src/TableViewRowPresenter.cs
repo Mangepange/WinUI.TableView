@@ -499,6 +499,11 @@ public partial class TableViewRowPresenter : Control
     internal bool IsDetailsPanelVisible => _detailsPanel?.Visibility is Visibility.Visible;
 
     /// <summary>
+    /// Gets the realized row header element.
+    /// </summary>
+    internal TableViewRowHeader? RowHeader => _rowHeader;
+
+    /// <summary>
     /// Programmatically shows or hides the details pane.
     /// Only takes effect when <see cref="TableView.RowDetailsVisibilityMode"/> is
     /// <see cref="TableViewRowDetailsVisibilityMode.VisibleWhenExpanded"/>.
