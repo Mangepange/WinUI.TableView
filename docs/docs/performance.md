@@ -25,8 +25,8 @@ Implement `INotifyPropertyChanged` on your model to ensure only cells whose data
 Live shaping re-evaluates sort and filter criteria when item properties change. This is convenient but has a cost on large collections:
 
 ```csharp
-// Disable unless you need items to resort/refilter automatically
-tableView.AllowLiveShaping = false; // (false is the default)
+// Disable unless you need items to resort/refilter automatically (AllowLiveShaping is enabled by default)
+tableView.AllowLiveShaping = false;
 ```
 
 Enable it only when users expect items to move or disappear in real time after edits.
