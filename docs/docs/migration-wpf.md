@@ -21,7 +21,7 @@ This guide helps developers who are migrating a WPF application to WinUI 3 and n
 | WPF DataGrid property | WinUI.TableView equivalent | Notes |
 |---|---|---|
 | [`AutoGenerateColumns`](xref:WinUI.TableView.TableView.AutoGenerateColumns) | [`AutoGenerateColumns`](xref:WinUI.TableView.TableView.AutoGenerateColumns) | Same behavior. |
-| [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) | [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) | Same behavior. Per-column [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) is also supported. |
+| [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) | [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) | Same behavior. Per-column [`IsReadOnly`](xref:WinUI.TableView.TableViewColumn.IsReadOnly) is also supported. |
 | `CanUserSortColumns` | [`CanSortColumns`](xref:WinUI.TableView.TableView.CanSortColumns) | Same behavior. |
 | `CanUserReorderColumns` | [`CanReorderColumns`](xref:WinUI.TableView.TableView.CanReorderColumns) | Same behavior. |
 | `CanUserResizeColumns` | [`CanResizeColumns`](xref:WinUI.TableView.TableView.CanResizeColumns) | Same behavior. |
