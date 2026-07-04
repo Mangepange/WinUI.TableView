@@ -101,7 +101,7 @@ These properties are available on every column type ([`TableViewColumn`](xref:Wi
 | [`Width`](xref:WinUI.TableView.TableViewColumn.Width) | `GridLength` | Column width (`Auto`, `*`, or pixel value) |
 | [`MinWidth`](xref:WinUI.TableView.TableViewColumn.MinWidth) | `double?` | Minimum column width |
 | [`MaxWidth`](xref:WinUI.TableView.TableViewColumn.MaxWidth) | `double?` | Maximum column width |
-| [`IsReadOnly`](xref:WinUI.TableView.TableView.IsReadOnly) | `bool` | Overrides TableView.IsReadOnly for this column |
+| [`IsReadOnly`](xref:WinUI.TableView.TableViewColumn.IsReadOnly) | `bool` | Overrides TableView.IsReadOnly for this column |
 | [`CanSort`](xref:WinUI.TableView.TableViewColumn.CanSort) | `bool` | Whether this column can be sorted |
 | [`CanFilter`](xref:WinUI.TableView.TableViewColumn.CanFilter) | `bool` | Whether this column can be filtered |
 | [`CanResize`](xref:WinUI.TableView.TableViewColumn.CanResize) | `bool` | Whether users can resize this column |
