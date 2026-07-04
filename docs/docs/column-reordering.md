@@ -63,7 +63,7 @@ Fires after a column has been successfully moved:
 ```csharp
 tableView.ColumnReordered += (s, e) =>
 {
-    Console.WriteLine($"Column '{e.Column.Header}' moved to index {e.NewIndex}");
+    Console.WriteLine($"Column '{e.Column.Header}' moved to index {e.Index}");
 };
 ```
 
