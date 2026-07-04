@@ -12,7 +12,7 @@ on:
       - 'docs/**'
 
 jobs:
-  build:
+  build-winui-sample:
     runs-on: windows-latest
 
     strategy:
@@ -36,6 +36,114 @@ jobs:
           9.0.x
           10.0.100
 
-    - name: Build
+    - name: Build WinUI sample app
       run: |
         msbuild /restore samples/WinUI.TableView.SampleApp/WinUI.TableView.SampleApp.csproj /p:Configuration=Release /p:Platform=${{ matrix.architecture }}
+
+  build-uno-desktop:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.4
+      with:
+        submodules: recursive
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v5.0.1
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.100
+
+    - name: Restore Uno workloads
+      run: dotnet workload restore samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj
+
+    - name: Build Uno desktop sample app
+      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-desktop
+
+  build-uno-wasm:
+    runs-on: ubuntu-latest
+    container: unoplatform/wasm-build:3.0
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.4
+      with:
+        submodules: recursive
+
+    - name: Set DOTNET_INSTALL_DIR
+      shell: bash
+      run: echo "DOTNET_INSTALL_DIR=$GITHUB_WORKSPACE/.dotnet" >> "$GITHUB_ENV"
+
+    - name: Set Wasm cache path
+      shell: pwsh
+      run: echo "WasmCachePath=${{ github.workspace }}/.emscripten-cache" >> $env:GITHUB_ENV
+
+    - name: Cache EMSDK
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.WasmCachePath }}
+        key: ${{ runner.os }}-build-emsdk-${{ hashFiles('global.json', 'samples/WinUI.TableView.SampleApp.Uno/**', 'samples/Directory.Build.props', 'samples/Directory.Packages.props') }}
+        restore-keys: |
+          ${{ runner.os }}-build-emsdk-
+
+    - name: Cache .NET
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/.dotnet
+        key: ${{ runner.os }}-build-dotnet-10.0.100
+        restore-keys: |
+          ${{ runner.os }}-build-dotnet-
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v5.0.1
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.100
+
+    - name: Restore Uno workloads
+      run: dotnet workload restore samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj
+
+    - name: Install wasm tools
+      run: dotnet workload install wasm-tools
+
+    - name: Build Uno wasm sample app
+      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-browserwasm /p:EnableWindowsTargeting=true
+
+  build-uno-mobile:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        target_framework: [net10.0-android, net10.0-ios]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.4
+      with:
+        submodules: recursive
+
+    - name: Set DOTNET_INSTALL_DIR
+      shell: bash
+      run: echo "DOTNET_INSTALL_DIR=$GITHUB_WORKSPACE/.dotnet" >> "$GITHUB_ENV"
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v5.0.1
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.100
+
+    - name: Restore Uno workloads
+      run: dotnet workload restore samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj
+
+    - name: Install mobile workloads
+      run: dotnet workload install android ios
+
+    - name: Build Uno mobile sample app
+      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f ${{ matrix.target_framework }}
