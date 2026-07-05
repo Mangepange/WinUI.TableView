@@ -60,6 +60,8 @@
     href: performance.md
   - name: Native AOT Compatibility
     href: aot-compatibility.md
+  - name: Accessibility
+    href: accessibility.md
 - name: Migration
   items:
   - name: Migrating from WPF DataGrid

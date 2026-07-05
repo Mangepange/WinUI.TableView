@@ -1,6 +1,7 @@
 using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -545,4 +546,21 @@ public partial class TableViewColumnHeader : ContentControl
     /// Gets or sets the filter items control associated with the column header.
     /// </summary>
     internal TableViewFilterItemsControl? FilterItemsControl { get; set; }
+
+    /// <summary>
+    /// Cycles through sort directions (ascending → descending → unsorted) for automation support.
+    /// </summary>
+    internal void InvokeSortCycle()
+    {
+        if (CanSort && Column is not null)
+        {
+            DoSort(GetNextSortDirection());
+        }
+    }
+
+    /// <inheritdoc/>
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new AutomationPeers.TableViewColumnHeaderAutomationPeer(this);
+    }
 }
