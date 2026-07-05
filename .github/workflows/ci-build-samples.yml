@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.4
+      uses: actions/checkout@v6.0.3
       with:
         submodules: recursive
 
@@ -45,7 +45,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.4
+      uses: actions/checkout@v6.0.3
       with:
         submodules: recursive
 
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 'unoplatform/wasm-build:3.0'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6.0.3
         with:
           submodules: true
           lfs: false
@@ -143,7 +143,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.4
+      uses: actions/checkout@v6.0.3
       with:
         submodules: recursive
 
