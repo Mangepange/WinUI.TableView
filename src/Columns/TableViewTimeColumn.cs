@@ -2,7 +2,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using System;
-using Windows.Globalization.DateTimeFormatting;
+using Windows.System.UserProfile;
 using WinUI.TableView.Controls;
 using WinUI.TableView.Extensions;
 using WinUI.TableView.Helpers;
@@ -24,7 +24,8 @@ public partial class TableViewTimeColumn : TableViewBoundColumn
     /// </summary>
     public TableViewTimeColumn()
     {
-        ClockIdentifier = DateTimeFormatter.LongTime.Clock;
+        var clocks = GlobalizationPreferences.Clocks;
+        ClockIdentifier = clocks.Count > 0 ? clocks[0] : "24HourClock";
     }
 
     /// <summary>
