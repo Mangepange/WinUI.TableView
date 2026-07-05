@@ -64,55 +64,75 @@ jobs:
       run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-desktop
 
   build-uno-wasm:
+    env:
+      DIST_PATH: samples/WinUI.TableView.SampleApp.Uno/bin/Release/net10.0-browserwasm/publish/wwwroot
+      DotnetVersion: '10.0.100'
     runs-on: ubuntu-latest
-    container: unoplatform/wasm-build:3.0
-
+    container: 'unoplatform/wasm-build:3.0'
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4.1.4
-      with:
-        submodules: recursive
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
 
-    - name: Set DOTNET_INSTALL_DIR
-      shell: bash
-      run: echo "DOTNET_INSTALL_DIR=$GITHUB_WORKSPACE/.dotnet" >> "$GITHUB_ENV"
+      # When running on macos, set the DOTNET_INSTALL_DIR so a workspace local folder
+      # is used to install the SDK. This is required for the Uno.Sdk.Updater to work
+      - name: Set DOTNET_INSTALL_DIR
+        if: runner.os == 'macos' || runner.os == 'linux'
+        shell: bash
+        run: echo "DOTNET_INSTALL_DIR=$GITHUB_WORKSPACE/.dotnet" >> $GITHUB_ENV
 
-    - name: Set Wasm cache path
-      shell: pwsh
-      run: echo "WasmCachePath=${{ github.workspace }}/.emscripten-cache" >> $env:GITHUB_ENV
+      - name: 'Set Wasm cache path'
+        shell: pwsh
+        run: echo "WasmCachePath=${{ github.workspace }}/.emscripten-cache" >> $env:GITHUB_ENV
 
-    - name: Cache EMSDK
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.WasmCachePath }}
-        key: ${{ runner.os }}-build-emsdk-${{ hashFiles('global.json', 'samples/WinUI.TableView.SampleApp.Uno/**', 'samples/Directory.Build.props', 'samples/Directory.Packages.props') }}
-        restore-keys: |
-          ${{ runner.os }}-build-emsdk-
+      - name: Cache EMSDK
+        id: cache-emsdk
+        uses: actions/cache@v4
+        env:
+            cache-name: cache-emsdk-modules
+        with:
+            path: ${{ env.WasmCachePath }}
+            key: ${{ runner.os }}-build-emsdk-${{ env.ValidationUnoCheckVersion }}
+            restore-keys: |
+              ${{ runner.os }}-build-emsdk-${{ env.ValidationUnoCheckVersion }}
 
-    - name: Cache .NET
-      uses: actions/cache@v4
-      with:
-        path: ${{ github.workspace }}/.dotnet
-        key: ${{ runner.os }}-build-dotnet-10.0.100
-        restore-keys: |
-          ${{ runner.os }}-build-dotnet-
+      - name: Cache .NET
+        id: cache-dotnet
+        uses: actions/cache@v4
+        env:
+            cache-name: cache-dotnet-install
+        with:
+            path: ${{ github.workspace }}/.dotnet
+            key: ${{ runner.os }}-build-dotnet-${{ env.DotnetVersion }}
+            restore-keys: |
+              ${{ runner.os }}-build-dotnet-${{ env.DotnetVersion }}
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5.0.1
-      with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-          10.0.100
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ env.DotnetVersion }}
 
-    - name: Restore Uno workloads
-      run: dotnet workload restore samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj
+      - uses: dotnet/nbgv@f088059084cb5d872e9d1a994433ca6440c2bf72 # v0.4.2
+        id: nbgv
+        with:
+          toolVersion: 3.6.139
+          setAllVars: true
 
-    - name: Install wasm tools
-      run: dotnet workload install wasm-tools
+      - name: Setup Workloads
+        run: |
+          cd samples/WinUI.TableView.SampleApp.Uno
+          dotnet workload restore
 
-    - name: Build Uno wasm sample app
-      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-browserwasm /p:EnableWindowsTargeting=true
+      - name: Setup Workloads
+        run: |
+          cd samples/WinUI.TableView.SampleApp.Uno
+          dotnet workload install wasm-tools
+
+      - name: Build Uno wasm sample app
+        run: |
+          cd samples/WinUI.TableView.SampleApp.Uno
+          dotnet publish -c Release -f net10.0-browserwasm "/p:PackageVersion=${{ steps.nbgv.outputs.SemVer2 }}" /p:EnableWindowsTargeting=true /bl:../binlogs/output.binlog
 
   build-uno-mobile:
     runs-on: macos-latest
