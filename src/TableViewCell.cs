@@ -646,7 +646,8 @@ public partial class TableViewCell : ContentControl
     /// <summary>
     /// Gets a value indicating whether the cell is read-only.
     /// </summary>
-    public bool IsReadOnly => TableView?.IsReadOnly is true || Column is TableViewTemplateColumn { EditingTemplate: null } or { IsReadOnly: true };
+    public bool IsReadOnly => TableView?.IsReadOnly is true
+                              || Column is TableViewTemplateColumn { EditingTemplate: null, EditingTemplateSelector: null } or { IsReadOnly: true };
 
     /// <summary>
     /// Gets the slot for the cell.
