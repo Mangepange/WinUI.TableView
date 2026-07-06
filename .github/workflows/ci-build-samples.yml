@@ -142,7 +142,7 @@ jobs:
           cd samples/WinUI.TableView.SampleApp.Uno
           dotnet workload restore
 
-      - name: Setup Workloads
+      - name: Install Wasm Tools
         run: |
           cd samples/WinUI.TableView.SampleApp.Uno
           dotnet workload install wasm-tools
@@ -161,6 +161,16 @@ jobs:
            samples/WinUI.TableView.SampleApp.Uno/bin/Release/net10.0-browserwasm/**
            artifacts/binlogs/build-uno-wasm.binlog
 
+  deploy-uno-wasm:
+    needs: build-uno-wasm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Uno wasm artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: uno-wasm
+          path: wasm-dist
+
       - name: Deploy to Azure Static Web Apps
         id: builddeploy
         continue-on-error: true
@@ -171,7 +181,7 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "${{ env.DIST_PATH }}" # App source code path
+          app_location: "wasm-dist/samples/WinUI.TableView.SampleApp.Uno/bin/Release/net10.0-browserwasm/publish/wwwroot" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
