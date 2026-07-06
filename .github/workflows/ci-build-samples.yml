@@ -111,9 +111,9 @@ jobs:
             cache-name: cache-emsdk-modules
         with:
             path: ${{ env.WasmCachePath }}
-            key: ${{ runner.os }}-build-emsdk-${{ env.ValidationUnoCheckVersion }}
+            key: ${{ runner.os }}-build-emsdk-${{ env.DotnetVersion }}
             restore-keys: |
-              ${{ runner.os }}-build-emsdk-${{ env.ValidationUnoCheckVersion }}
+              ${{ runner.os }}-build-emsdk-${{ env.DotnetVersion }}
 
       - name: Cache .NET
         id: cache-dotnet
