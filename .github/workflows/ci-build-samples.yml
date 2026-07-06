@@ -38,16 +38,14 @@ jobs:
 
     - name: Build WinUI sample app
       run: |
-        msbuild /restore samples/WinUI.TableView.SampleApp/WinUI.TableView.SampleApp.csproj /p:Configuration=Release /p:Platform=${{ matrix.architecture }} /bl:artifacts/binlogs/build-winui-sample-${{ matrix.architecture }}.binlog
+        msbuild /restore samples/WinUI.TableView.SampleApp/WinUI.TableView.SampleApp.csproj /p:Configuration=Release /p:Platform=${{ matrix.architecture }} /p:OutputPath=artifacts/winui-${{ matrix.architecture }}-output /bl:artifacts/binlogs/build-winui-sample-${{ matrix.architecture }}.binlog
 
     - name: Upload WinUI sample artifacts
       uses: actions/upload-artifact@v7.0.1
       with:
         name: winui-sample-${{ matrix.architecture }}
         if-no-files-found: warn
-        path: |
-          samples/WinUI.TableView.SampleApp/bin/${{ matrix.architecture }}/Release/**
-          artifacts/binlogs/build-winui-sample-${{ matrix.architecture }}.binlog
+        path: artifacts/**
 
   build-uno-desktop:
     runs-on: windows-latest
@@ -70,16 +68,14 @@ jobs:
       run: dotnet workload restore samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj
 
     - name: Build Uno desktop sample app
-      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-desktop -bl:artifacts/binlogs/build-uno-desktop.binlog
+      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f net10.0-desktop -p:OutputPath=artifacts/uno-desktop-output -bl:artifacts/binlogs/build-uno-desktop.binlog
 
     - name: Upload Uno desktop artifacts
       uses: actions/upload-artifact@v7.0.1
       with:
         name: uno-desktop
         if-no-files-found: warn
-        path: |
-          samples/WinUI.TableView.SampleApp.Uno/bin/Release/net10.0-desktop/**
-          artifacts/binlogs/build-uno-desktop.binlog
+        path: artifacts/**
 
   build-uno-wasm:
     env:
@@ -150,16 +146,14 @@ jobs:
       - name: Build Uno wasm sample app
         run: |
           cd samples/WinUI.TableView.SampleApp.Uno
-          dotnet publish -c Release -f net10.0-browserwasm "/p:PackageVersion=${{ steps.nbgv.outputs.SemVer2 }}" -bl:artifacts/binlogs/build-uno-wasm.binlog
+          dotnet publish -c Release -f net10.0-browserwasm "/p:PackageVersion=${{ steps.nbgv.outputs.SemVer2 }}" -p:OutputPath=artifacts/uno-wasm-output -bl:artifacts/binlogs/build-uno-wasm.binlog
 
       - name: Upload Uno wasm artifacts
         uses: actions/upload-artifact@v7.0.1
         with:
          name: uno-wasm
          if-no-files-found: warn
-         path: |
-           samples/WinUI.TableView.SampleApp.Uno/bin/Release/net10.0-browserwasm/**
-           artifacts/binlogs/build-uno-wasm.binlog
+         path: artifacts/**
 
   build-uno-mobile:
     runs-on: macos-latest
@@ -193,13 +187,11 @@ jobs:
       run: dotnet workload install android ios
 
     - name: Build Uno mobile sample app
-      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f ${{ matrix.target_framework }} -bl:artifacts/binlogs/build-uno-mobile-${{ matrix.target_framework }}.binlog
+      run: dotnet build samples/WinUI.TableView.SampleApp.Uno/WinUI.TableView.SampleApp.Uno.csproj -c Release -f ${{ matrix.target_framework }} -p:OutputPath=artifacts/uno-mobile-${{ matrix.target_framework }}-output -bl:artifacts/binlogs/build-uno-mobile-${{ matrix.target_framework }}.binlog
 
     - name: Upload Uno mobile artifacts
       uses: actions/upload-artifact@v7.0.1
       with:
         name: uno-mobile-${{ matrix.target_framework }}
         if-no-files-found: warn
-        path: |
-          samples/WinUI.TableView.SampleApp.Uno/bin/Release/${{ matrix.target_framework }}/**
-          artifacts/binlogs/build-uno-mobile-${{ matrix.target_framework }}.binlog
+        path: artifacts/**
