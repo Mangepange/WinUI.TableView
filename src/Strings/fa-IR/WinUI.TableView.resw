@@ -151,16 +151,16 @@
     <value>کپی کردن محتوای ردیف انتخاب‌ شده در کلیپ‌ بورد.</value>
   </data>
   <data name="CopyWithHeaders" xml:space="preserve">
-    <value>کپی با عنوان ستون‌ها</value>
+    <value>کپی با عنوان ستون‌ ها</value>
   </data>
   <data name="CopyWithHeadersCommandDescription" xml:space="preserve">
-    <value>کپی کردن محتوای ردیف انتخاب‌ شده، همراه با عنوان ستون‌ها، در کلیپ‌ بورد.</value>
+    <value>کپی کردن محتوای ردیف انتخاب‌ شده، همراه با عنوان ستون‌ ها، در کلیپ‌ بورد.</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
     <value>لغو انتخاب همه</value>
   </data>
   <data name="DeselectAllCommandDescription" xml:space="preserve">
-    <value>خارج کردن همه ردیف‌ها از حالت انتخاب.</value>
+    <value>خارج کردن همه ردیف‌ ها از حالت انتخاب.</value>
   </data>
   <data name="ExportAll" xml:space="preserve">
     <value>خروجی همه به CSV</value>
