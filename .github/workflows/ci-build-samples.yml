@@ -162,6 +162,7 @@ jobs:
            artifacts/binlogs/build-uno-wasm.binlog
 
   deploy-uno-wasm:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build-uno-wasm
     runs-on: ubuntu-latest
     steps:
