@@ -26,9 +26,13 @@ public partial class TableViewDateColumn : TableViewBoundColumn
     /// </summary>
     public TableViewDateColumn()
     {
+#if WINDOWS
         var languages = GlobalizationPreferences.Languages;
         var patterns = languages.Count > 0 ? new DateTimeFormatter("shortdate", languages).Patterns : null;
-        DateFormat = patterns?.Count > 0 ? patterns[0] : "shortdate";
+        DateFormat = patterns?.Count > 0 ? patterns[0] : "shortdate"; 
+#else
+        DateFormat = DateTimeFormatter.ShortDate.Patterns[0];
+#endif
     }
 
     /// <summary>
