@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>$(NetVersion)-windows10.0.26100.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <WindowsSdkPackageVersion>10.0.19041.56</WindowsSdkPackageVersion>
     <RootNamespace>WinUI.TableView.Tests</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
@@ -11,7 +10,6 @@
     <UseWinUI>true</UseWinUI>
     <WinUIDSKReferences>false</WinUIDSKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -44,13 +42,12 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.14.1" >
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" >
       <ExcludeAssets>build</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.9.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.9.3" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
   </ItemGroup>
   
   <ItemGroup>
