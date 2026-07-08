@@ -15,12 +15,14 @@ public partial class App : Application
     {
         InitializeComponent();
 
-#if DEBUG 
+#if DEBUG && WINDOWS
         DebugSettings.BindingFailed += DebugSettings_BindingFailed;
         DebugSettings.XamlResourceReferenceFailed += DebugSettings_XamlResourceReferenceFailed;
         UnhandledException += App_UnhandledException;
+#endif
     }
 
+#if DEBUG && WINDOWS
     private void DebugSettings_BindingFailed(object sender, BindingFailedEventArgs e)
     {
         System.Diagnostics.Debug.WriteLine(e.Message);
